@@ -4,13 +4,19 @@ import axios from 'axios';
 export default function (app: Application): void {
   app.get('/', async (req, res) => {
     try {
-      // An example of connecting to the backend (a starting point)
-      const response = await axios.get('http://localhost:4000/get-example-case');
-      console.log(response.data);
-      res.render('home', { "example": response.data });
+      const response = await axios.get('http://host.docker.internal:4000/tasks');
+      const tasks = response.data;
+
+      res.render('task-list', { tasks });
     } catch (error) {
-      console.error('Error making request:', error);
-      res.render('home', {});
+      console.error('Error fetching tasks:', error);
+      res.render('task-list', { tasks: [] });
     }
+  });
+
+  app.use((req, res) => {
+    res.status(404).render('not-found.njk', {
+      url: req.originalUrl
+    });
   });
 }

@@ -1,0 +1,59 @@
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/textarea/macro.njk" import govukTextarea %}
+{% from "govuk/components/date-input/macro.njk" import govukDateInput %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% extends "template.njk" %}
+
+{% block content %}
+  <h1 class="govuk-heading-xl">Create New Task</h1>
+
+  <form action="/task/create" method="post" novalidate>
+
+    {{ govukInput({
+      label: { text: "Case Number" },
+      id: "caseNumber",
+      name: "caseNumber",
+      classes: "govuk-!-width-one-half"
+    }) }}
+
+    {{ govukInput({
+      label: { text: "Title" },
+      id: "title",
+      name: "title",
+      classes: "govuk-!-width-two-thirds"
+    }) }}
+
+    {{ govukTextarea({
+      label: { text: "Description (optional)" },
+      id: "description",
+      name: "description",
+      classes: "govuk-!-width-two-thirds"
+    }) }}
+
+    {{ govukInput({
+      label: { text: "Status" },
+      id: "status",
+      name: "status",
+      classes: "govuk-!-width-one-half"
+    }) }}
+
+    {{ govukInput({
+      label: {
+        text: "Days Until Due",
+        classes: "govuk-label--m"
+      },
+      id: "daysUntilDue",
+      name: "daysUntilDue",
+      classes: "govuk-input--width-2",
+      hint: {
+        text: "Enter the number of days from today (e.g. 7)"
+      },
+      inputMode: "numeric"
+    }) }}
+
+    {{ govukButton({
+      text: "Create Task"
+    }) }}
+
+  </form>
+{% endblock %}

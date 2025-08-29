@@ -13,6 +13,7 @@ export class Nunjucks {
     nunjucks.configure(path.join(__dirname, '..', '..', 'views'), {
       autoescape: true,
       watch: this.developmentMode,
+      noCache: true,
       express: app,
     });
 

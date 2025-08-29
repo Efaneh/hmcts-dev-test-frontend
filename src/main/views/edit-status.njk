@@ -1,0 +1,20 @@
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% extends "template.njk" %}
+
+{% block content %}
+  <h1 class="govuk-heading-l">Update Status for Task {{ taskId }}</h1>
+
+  <form action="/task/{{ taskId }}/status/edit" method="POST">
+    {{ govukInput({
+      label: {
+        text: "New Status",
+        classes: "govuk-label--m"
+      },
+      id: "new-status",
+      name: "status"
+    }) }}
+
+    <button type="submit" class="govuk-button">Save</button>
+    <a href="/task/{{ taskId }}" class="govuk-button govuk-button--secondary">Cancel</a>
+  </form>
+{% endblock %}

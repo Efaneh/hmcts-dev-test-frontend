@@ -1,0 +1,38 @@
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% extends "template.njk" %}
+
+{% block content %}
+  <h1 class="govuk-heading-xl">All Tasks</h1>
+
+  {{ govukButton({
+    text: "Create New Task",
+    href: "/task/create",
+    classes: "govuk-!-margin-bottom-6"
+  }) }}
+
+  {% for task in tasks %}
+    {{ govukSummaryList({
+      rows: [
+        {
+          key: { text: "ID" },
+          value: { text: task.id }
+        },
+        {
+          key: { text: "Case Number" },
+          value: { text: task.caseNumber }
+        },
+        {
+          key: { text: "Due Date" },
+          value: { text: task.dueDate }
+        }
+      ]
+    }) }}
+
+    {{ govukButton({
+      text: "View Task Details",
+      href: "/task/" + task.id,
+      classes: "govuk-button--secondary govuk-!-margin-bottom-6"
+    }) }}
+  {% endfor %}
+{% endblock %}
